@@ -419,7 +419,7 @@ header {
   margin-top: 50px;
   padding: 50px 0;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  background: linear-gradient(135deg, #2A0707 0%, #1A0303 100%);
+  background-color: #f2f2f2;
 }
 
 .team h2 {
@@ -558,7 +558,7 @@ header {
   margin: 2rem auto;
   padding: 2rem 0;
   max-width: 1200px;
-  background-color: #210202;
+  background-color: #f2f2f2;
   border-radius: 8px;
   text-align: center;
 }
@@ -608,34 +608,40 @@ header {
 
 /* TESTIMONIALS SECTION */
 .testimonials-section {
-  background-color: #210202;
+  background-color: #f2f2f2;
   color: #fff;
   padding: 3rem 1rem;
   max-width: 1200px;
   margin: 2rem auto;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   position: relative;
   overflow: hidden;
 }
 
 .testimonials-section h2 {
-  font-size: 2rem;
+  font-size: 2.5rem;
   margin-bottom: 0.5rem;
   color: #a81a1a;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }
 
 .testimonials-section p.section-subtitle {
   color: #FF0000;
   margin-bottom: 2rem;
+  text-align: center;
+  font-size: 1.2rem;
 }
 
 .testimonials-wrapper {
   display: flex;
-  gap: 1rem;
+  gap: 1.5rem;
   overflow-x: auto;
   scroll-behavior: smooth;
-  padding-bottom: 1rem;
+  padding: 1rem 0;
+  position: relative;
 }
 
 .testimonials-wrapper::-webkit-scrollbar {
@@ -645,55 +651,102 @@ header {
 .testimonial-card {
   min-width: 300px;
   max-width: 320px;
-  background-color: #000000;
-  border: 1px solid #FF0000;
-  border-radius: 8px;
-  padding: 1.5rem;
+  background: linear-gradient(145deg, #ffffff, #f0f0f0);
+  border: 1px solid #c83349;
+  border-radius: 12px;
+  padding: 2rem;
   flex-shrink: 0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 12px 24px rgba(200, 51, 73, 0.3);
+  border-color: #FF0000;
+}
+
+.testimonial-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 0, 0, 0.1) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.testimonial-card:hover::before {
+  opacity: 1;
 }
 
 .testimonial-card h3 {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   margin-bottom: 1rem;
-  color: #FFFFFF;
+  color: #c83349;
+  transition: color 0.3s ease;
+}
+
+.testimonial-card:hover h3 {
+  color: #FF0000;
 }
 
 .testimonial-card p {
-  font-size: 0.95rem;
-  color: #FFFFFF;
+  font-size: 1rem;
+  color: #333;
   margin-bottom: 1.5rem;
-  line-height: 1.4;
+  line-height: 1.6;
+  transition: color 0.3s ease;
+}
+
+.testimonial-card:hover p {
+  color: #222;
 }
 
 .testimonial-author {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 1rem;
   margin-bottom: 0.5rem;
 }
 
 .testimonial-author img {
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   object-fit: cover;
+  border: 2px solid #c83349;
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.testimonial-card:hover .testimonial-author img {
+  border-color: #FF0000;
+  transform: scale(1.1);
 }
 
 .testimonial-author div h4 {
-  font-size: 1rem;
+  font-size: 1.1rem;
   margin-bottom: 3px;
-  color: #FFFFFF;
+  color: #7a3b2e;
+  transition: color 0.3s ease;
+}
+
+.testimonial-card:hover .testimonial-author div h4 {
+  color: #FF0000;
 }
 
 .testimonial-author div span {
-  font-size: 0.85rem;
-  color: #999;
+  font-size: 0.9rem;
+  color: #7a3b2e;
+  transition: color 0.3s ease;
 }
 
-.rating {
-  color: #FFD700;
-  font-size: 1rem;
+.testimonial-card:hover .testimonial-author div span {
+  color: #FF0000;
 }
 
 .testimonial-arrow-btn {
@@ -701,33 +754,34 @@ header {
   top: 50%;
   transform: translateY(-50%);
   border: none;
-  background-color: #FF0000;
+  background: linear-gradient(90deg, #FF0000, #CC0000);
   color: #fff;
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background 0.3s ease, transform 0.3s ease;
   z-index: 2;
 }
 
 .testimonial-arrow-btn:hover {
-  background-color: #CC0000;
+  background: linear-gradient(90deg, #CC0000, #AA0000);
+  transform: translateY(-50%) scale(1.1);
 }
 
 #testimonialPrev {
-  left: 10px;
+  left: 15px;
 }
 
 #testimonialNext {
-  right: 10px;
+  right: 15px;
 }
 
 /* CONTACT SECTION */
 .contact-section {
   padding: 80px 0;
-  background: linear-gradient(135deg, #2A0707 0%, #1A0303 100%);
+  background: #f2f2f2;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   position: relative;
   overflow: hidden;
@@ -1075,11 +1129,37 @@ header {
     font-size: 1.2rem;
   }
 
+  .team-arrow {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+
   #teamPrev {
     left: 10px;
   }
 
   #teamNext {
     right: 10px;
+  }
+
+  .testimonial-card {
+    min-width: 280px;
+    max-width: 300px;
+    padding: 1.5rem;
+  }
+
+  .testimonial-arrow-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+
+  #testimonialPrev {
+    left: 5px;
+  }
+
+  #testimonialNext {
+    right: 5px;
   }
 }

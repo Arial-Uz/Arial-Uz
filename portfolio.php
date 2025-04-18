@@ -178,10 +178,6 @@ include 'printData.php';
               <span><?= htmlspecialchars($c['location']) ?></span>
             </div>
           </div>
-          <div class="rating">
-            <?= str_repeat('★', (int) $c['rating']) ?>
-            <?= str_repeat('☆', 5 - (int) $c['rating']) ?>
-          </div>
         </div>
       <?php endforeach; ?>
     </div>
@@ -342,11 +338,11 @@ include 'printData.php';
     });
 
     testimonialPrev.addEventListener("click", () => {
-      testimonialsWrapper.scrollBy({ left: -300, behavior: "smooth" });
+      testimonialsWrapper.scrollBy({ left: -320, behavior: "smooth" });
     });
 
     testimonialNext.addEventListener("click", () => {
-      testimonialsWrapper.scrollBy({ left: 300, behavior: "smooth" });
+      testimonialsWrapper.scrollBy({ left: 320, behavior: "smooth" });
     });
 
     // Poligraphy Slider
