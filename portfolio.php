@@ -1,3 +1,8 @@
+
+<?php
+include 'comments.php';
+?>
+
 <!DOCTYPE html>
 <html lang="uz">
 
@@ -7,36 +12,28 @@
   <title>Arial Uz Portfolio</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
   <link rel="stylesheet" href="data/footer.css" />
-  <link rel="stylesheet" href="portfolio.css?v=1.0" />
+  <link rel="stylesheet" href="portfolio.css?v=1.1" />
 </head>
 
 <body>
   <!-- HEADER + NAVIGATION -->
   <header>
-    <div class="nav-container"><!-- = barcha pill’larni tutib turadi -->
-
-      <!-- ✔ 1‑pill: Logo -->
-      <a href="#" class="logo-pill">Arial Uz</a>
-
-      <!-- ✔ 2‑pill: Navigatsiya + Search -->
+    <div class="nav-container">
+      <a href="#" class="logo-pill">Arial Uz</a>
       <div class="center-pill">
         <ul class="nav-links">
           <li><a href="#">Bosh sahifa</a></li>
           <li><a href="#who">Biz kimmiz?</a></li>
           <li><a href="#team">Jamoa</a></li>
-          <li><a href="index.php">Arial Market</a></li>
+          <li><a href="index.php">Arial Market</a></li>
           <li><a href="#contact">Aloqa</a></li>
         </ul>
-
         <form class="search">
           <i class="fas fa-search"></i>
           <input type="text" placeholder="Search" />
         </form>
       </div>
-
-      <!-- ✔ 3‑pill: Contact -->
-      <a href="#contact" class="contact-pill">Contact Us</a>
-
+      <a href="#contact" class="contact-pill">Contact Us</a>
     </div>
   </header>
 
@@ -133,23 +130,12 @@
   <!-- BIZNING JAMOA SECTION -->
   <section id="team" class="team container">
     <h2>Bizning jamoa</h2>
-    <div class="team-container">
-      <div class="team-info" id="teamInfoBox">
-        <h3 id="memberName">Muhammadamin Ikromovich</h3>
-        <span id="memberPosition">CEO</span>
-        <p id="memberBio">
-          The IT specialist, innovation enthusiast, and perfectionist. He guides the team and
-          motivates them to adopt the best technologies.
-        </p>
+    <div class="team-slider">
+      <button class="team-arrow" id="teamPrev">←</button>
+      <div class="team-slides" id="teamSlides">
+        <!-- Slides will be dynamically inserted via JavaScript -->
       </div>
-      <div class="slider-controls">
-        <button class="slider-btn" id="prevBtn">←</button>
-        <button class="slider-btn" id="nextBtn">→</button>
-      </div>
-      <div class="team-images" id="teamImagesBox">
-        <img src="images/jaket3.jpg" alt="Xodim 1">
-        <img src="images/jaket2.jpg" alt="Xodim 2">
-      </div>
+      <button class="team-arrow" id="teamNext">→</button>
     </div>
   </section>
 
@@ -303,52 +289,76 @@
       {
         name: "Muhammadamin Ikromovich",
         position: "CEO",
-        bio: "The IT specialist, innovation enthusiast, and perfectionist. He guides the team...",
-        images: ["images/jaket3.jpg", "images/jaket2.jpg"]
+        bio: "The IT specialist, innovation enthusiast, and perfectionist. He guides the team and motivates them to adopt the best technologies.",
+        image: "images/jaket3.jpg"
       },
       {
         name: "Zuxriddin Qayumov",
         position: "Managing Partner",
-        bio: "A dedicated partner focusing on management and business growth...",
-        images: ["images/zux1.jpg", "images/zux2.jpg"]
+        bio: "A dedicated partner focusing on management and business growth, ensuring client satisfaction and team synergy.",
+        image: "images/zux1.jpg"
       },
       {
-        name: "Xodim 3",
-        position: "Designer",
-        bio: "Creative designer with a passion for modern, user-friendly interfaces...",
-        images: ["images/placeholder.jpg", "images/placeholder.jpg"]
+        name: "Aliya Xusanova",
+        position: "Lead Designer",
+        bio: "Creative designer with a passion for modern, user-friendly interfaces, bringing brands to life with stunning visuals.",
+        image: "images/placeholder.jpg"
       }
     ];
-    let currentIndex = 0;
 
-    const memberName = document.getElementById("memberName");
-    const memberPosition = document.getElementById("memberPosition");
-    const memberBio = document.getElementById("memberBio");
-    const teamImagesBox = document.getElementById("teamImagesBox");
-    const prevBtn = document.getElementById("prevBtn");
-    const nextBtn = document.getElementById("nextBtn");
+    let currentTeamIndex = 0;
+    let autoSlideInterval;
+    const teamSlidesContainer = document.getElementById("teamSlides");
+    const teamPrev = document.getElementById("teamPrev");
+    const teamNext = document.getElementById("teamNext");
 
-    function showSlide(index) {
-      const slide = teamSlides[index];
-      memberName.textContent = slide.name;
-      memberPosition.textContent = slide.position;
-      memberBio.textContent = slide.bio;
-      teamImagesBox.innerHTML = `
-        <img src="${slide.images[0]}" alt="Rasm 1">
-        <img src="${slide.images[1]}" alt="Rasm 2">
-      `;
+    function renderTeamSlides() {
+      teamSlidesContainer.innerHTML = teamSlides.map((slide, index) => `
+        <div class="team-slide ${index === currentTeamIndex ? 'active' : ''}">
+          <div class="team-image">
+            <img src="${slide.image}" alt="${slide.name}">
+            <div class="team-overlay">
+              <h3>${slide.name}</h3>
+              <span>${slide.position}</span>
+              <p>${slide.bio}</p>
+            </div>
+          </div>
+        </div>
+      `).join('');
     }
-    showSlide(currentIndex);
 
-    prevBtn.addEventListener("click", () => {
-      currentIndex = (currentIndex - 1 + teamSlides.length) % teamSlides.length;
-      showSlide(currentIndex);
+    function showTeamSlide(index) {
+      currentTeamIndex = (index + teamSlides.length) % teamSlides.length;
+      renderTeamSlides();
+    }
+
+    function startAutoSlide() {
+      autoSlideInterval = setInterval(() => {
+        showTeamSlide(currentTeamIndex + 1);
+      }, 5000);
+    }
+
+    function stopAutoSlide() {
+      clearInterval(autoSlideInterval);
+    }
+
+    teamPrev.addEventListener("click", () => {
+      stopAutoSlide();
+      showTeamSlide(currentTeamIndex - 1);
+      startAutoSlide();
     });
 
-    nextBtn.addEventListener("click", () => {
-      currentIndex = (currentIndex + 1) % teamSlides.length;
-      showSlide(currentIndex);
+    teamNext.addEventListener("click", () => {
+      stopAutoSlide();
+      showTeamSlide(currentTeamIndex + 1);
+      startAutoSlide();
     });
+
+    teamSlidesContainer.addEventListener("mouseenter", stopAutoSlide);
+    teamSlidesContainer.addEventListener("mouseleave", startAutoSlide);
+
+    renderTeamSlides();
+    startAutoSlide();
 
     // Testimonials Slider
     const testimonialsWrapper = document.getElementById("testimonialsWrapper");
