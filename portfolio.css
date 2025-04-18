@@ -145,6 +145,11 @@ header{
   transition:all .25s;
 }
 
+.contact-pill:hover{
+  background:#003c34;
+  color:#fff;
+}
+
 .navbar {
   display: flex;
   justify-content: space-between;
