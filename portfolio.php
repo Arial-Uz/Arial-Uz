@@ -1,6 +1,8 @@
-
 <?php
 include 'comments.php';
+include 'teamSlidesData.php';
+include 'clientsData.php';
+include 'printData.php';
 ?>
 
 <!DOCTYPE html>
@@ -144,73 +146,17 @@ include 'comments.php';
     <h2 class="clients-title">Bizning mijozlarimiz</h2>
     <div class="logos-scroller">
       <div class="logos-track">
-        <div class="client-logo">
-          <img src="images/logos/supermiya_logo.webp" alt="Client 1">
-        </div>
-        <div class="client-logo">
-          <img src="images/logos/89risi3f4biqz2idnkgq7829vbrszjzc.jpg" alt="Client 2">
-        </div>
-        <div class="client-logo">
-          <img src="images/logos/Artel-01.png" alt="Client 3">
-        </div>
-        <div class="client-logo">
-          <img src="images/logos/images.png" alt="Client 4">
-        </div>
-        <div class="client-logo">
-          <img src="images/logos/Samsung_Logo.svg" alt="Client 5">
-        </div>
-        <div class="client-logo">
-          <img src="images/logos/0bae8189e19395b487089bcfb5b6fad5_webp.webp" alt="Client 6">
-        </div>
-        <div class="client-logo">
-          <img src="images/logos/bukhari.png" alt="Client 7">
-        </div>
-        <div class="client-logo">
-          <img src="images/logos/irragimovs.png" alt="Client 8">
-        </div>
-        <div class="client-logo">
-          <img src="images/logos/brand1.png" alt="Client 9">
-        </div>
-        <div class="client-logo">
-          <img src="images/logos/dinaras.png" alt="Client 10">
-        </div>
-        <div class="client-logo">
-          <img src="images/logos/brand2.png" alt="Client 11">
-        </div>
+        <?php foreach ($clientsData as $client): ?>
+          <div class="client-logo">
+            <img src="<?= htmlspecialchars($client['img']) ?>" alt="<?= htmlspecialchars($client['alt']) ?>">
+          </div>
+        <?php endforeach; ?>
         <!-- Repeated set for continuous scroll -->
-        <div class="client-logo">
-          <img src="images/logos/supermiya_logo.webp" alt="Client 1">
-        </div>
-        <div class="client-logo">
-          <img src="images/logos/89risi3f4biqz2idnkgq7829vbrszjzc.jpg" alt="Client 2">
-        </div>
-        <div class="client-logo">
-          <img src="images/logos/Artel-01.png" alt="Client 3">
-        </div>
-        <div class="client-logo">
-          <img src="images/logos/images.png" alt="Client 4">
-        </div>
-        <div class="client-logo">
-          <img src="images/logos/Samsung_Logo.svg" alt="Client 5">
-        </div>
-        <div class="client-logo">
-          <img src="images/logos/0bae8189e19395b487089bcfb5b6fad5_webp.webp" alt="Client 6">
-        </div>
-        <div class="client-logo">
-          <img src="images/logos/bukhari.png" alt="Client 7">
-        </div>
-        <div class="client-logo">
-          <img src="images/logos/irragimovs.png" alt="Client 8">
-        </div>
-        <div class="client-logo">
-          <img src="images/logos/brand1.png" alt="Client 9">
-        </div>
-        <div class="client-logo">
-          <img src="images/logos/dinaras.png" alt="Client 10">
-        </div>
-        <div class="client-logo">
-          <img src="images/logos/brand2.png" alt="Client 11">
-        </div>
+        <?php foreach ($clientsData as $client): ?>
+          <div class="client-logo">
+            <img src="<?= htmlspecialchars($client['img']) ?>" alt="<?= htmlspecialchars($client['alt']) ?>">
+          </div>
+        <?php endforeach; ?>
       </div>
     </div>
   </section>
@@ -285,26 +231,7 @@ include 'comments.php';
   <!-- SCRIPTS -->
   <script>
     // Team Slider
-    const teamSlides = [
-      {
-        name: "Muhammadamin Ikromovich",
-        position: "CEO",
-        bio: "The IT specialist, innovation enthusiast, and perfectionist. He guides the team and motivates them to adopt the best technologies.",
-        image: "images/jaket3.jpg"
-      },
-      {
-        name: "Zuxriddin Qayumov",
-        position: "Managing Partner",
-        bio: "A dedicated partner focusing on management and business growth, ensuring client satisfaction and team synergy.",
-        image: "images/zux1.jpg"
-      },
-      {
-        name: "Aliya Xusanova",
-        position: "Lead Designer",
-        bio: "Creative designer with a passion for modern, user-friendly interfaces, bringing brands to life with stunning visuals.",
-        image: "images/placeholder.jpg"
-      }
-    ];
+    const teamSlidesData = <?php echo json_encode($teamSlidesData); ?>;
 
     let currentTeamIndex = 0;
     let autoSlideInterval;
@@ -313,8 +240,19 @@ include 'comments.php';
     const teamNext = document.getElementById("teamNext");
 
     function renderTeamSlides() {
-      teamSlidesContainer.innerHTML = teamSlides.map((slide, index) => `
-        <div class="team-slide ${index === currentTeamIndex ? 'active' : ''}">
+      teamSlidesContainer.innerHTML = '';
+      const totalSlides = teamSlidesData.length;
+      // Create a seamless loop by adding slides before and after the current set
+      const slidesToShow = [];
+      for (let i = -1; i <= 3; i++) {
+        let index = (currentTeamIndex + i + totalSlides) % totalSlides;
+        slidesToShow.push(teamSlidesData[index]);
+      }
+
+      slidesToShow.forEach((slide, i) => {
+        const slideElement = document.createElement('div');
+        slideElement.className = `team-slide ${i >= 1 && i <= 3 ? 'active' : ''}`;
+        slideElement.innerHTML = `
           <div class="team-image">
             <img src="${slide.image}" alt="${slide.name}">
             <div class="team-overlay">
@@ -323,19 +261,31 @@ include 'comments.php';
               <p>${slide.bio}</p>
             </div>
           </div>
-        </div>
-      `).join('');
+        `;
+        teamSlidesContainer.appendChild(slideElement);
+      });
     }
 
-    function showTeamSlide(index) {
-      currentTeamIndex = (index + teamSlides.length) % teamSlides.length;
-      renderTeamSlides();
+    function showTeamSlide(direction) {
+      const totalSlides = teamSlidesData.length;
+      if (direction === 'next') {
+        currentTeamIndex = (currentTeamIndex + 1) % totalSlides;
+      } else {
+        currentTeamIndex = (currentTeamIndex - 1 + totalSlides) % totalSlides;
+      }
+      teamSlidesContainer.style.transition = 'transform 0.5s ease-in-out';
+      teamSlidesContainer.style.transform = direction === 'next' ? 'translateX(-25%)' : 'translateX(25%)';
+      setTimeout(() => {
+        teamSlidesContainer.style.transition = 'none';
+        teamSlidesContainer.style.transform = 'translateX(0)';
+        renderTeamSlides();
+      }, 500);
     }
 
     function startAutoSlide() {
       autoSlideInterval = setInterval(() => {
-        showTeamSlide(currentTeamIndex + 1);
-      }, 5000);
+        showTeamSlide('next');
+      }, 3000); // Adjust interval as needed
     }
 
     function stopAutoSlide() {
@@ -344,13 +294,13 @@ include 'comments.php';
 
     teamPrev.addEventListener("click", () => {
       stopAutoSlide();
-      showTeamSlide(currentTeamIndex - 1);
+      showTeamSlide('prev');
       startAutoSlide();
     });
 
     teamNext.addEventListener("click", () => {
       stopAutoSlide();
-      showTeamSlide(currentTeamIndex + 1);
+      showTeamSlide('next');
       startAutoSlide();
     });
 
@@ -400,23 +350,7 @@ include 'comments.php';
     });
 
     // Poligraphy Slider
-    const printData = [
-      {
-        title: "KUNDALIK",
-        desc: "Hamkasblaringiz yoki hamkorlaringiz uchun unutilmas sovg‘a bo‘lishi mumkin bo‘lgan suvenir...",
-        img: "images/print/kundalik.png"
-      },
-      {
-        title: "FLAYER",
-        desc: "Reklama flayerlari yordamida mahsulotingizni keng auditoriyaga taniting...",
-        img: "images/print/flayer.png"
-      },
-      {
-        title: "BUKLET",
-        desc: "Kompleks ma’lumotni ixcham va jozibali ko‘rinishda taqdim etish usuli...",
-        img: "images/print/buklet.png"
-      }
-    ];
+    const printData = <?php echo json_encode($printData); ?>;
 
     let psIndex = 0;
     const psHeading = document.getElementById("psHeading");
