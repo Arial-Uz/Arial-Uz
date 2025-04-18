@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="uz">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,20 +9,34 @@
   <link rel="stylesheet" href="data/footer.css" />
   <link rel="stylesheet" href="portfolio.css?v=1.0" />
 </head>
+
 <body>
   <!-- HEADER + NAVIGATION -->
   <header>
-    <div class="container navbar">
-      <div class="logo-section">
-        <div class="logo">Arial Uz</div>
+    <div class="nav-container"><!-- = barcha pill’larni tutib turadi -->
+
+      <!-- ✔ 1‑pill: Logo -->
+      <a href="#" class="logo-pill">Arial Uz</a>
+
+      <!-- ✔ 2‑pill: Navigatsiya + Search -->
+      <div class="center-pill">
+        <ul class="nav-links">
+          <li><a href="#">Bosh sahifa</a></li>
+          <li><a href="#who">Biz kimmiz?</a></li>
+          <li><a href="#team">Jamoa</a></li>
+          <li><a href="index.php">Arial Market</a></li>
+          <li><a href="#contact">Aloqa</a></li>
+        </ul>
+
+        <form class="search">
+          <i class="fas fa-search"></i>
+          <input type="text" placeholder="Search" />
+        </form>
       </div>
-      <ul>
-        <li><a href="#">Bosh sahifa</a></li>
-        <li><a href="#who">Biz kimmiz?</a></li>
-        <li><a href="#team">Bizning jamoa</a></li>
-        <li><a href="index.php">Arial Market</a></li>
-        <li><a href="#contact">Aloqa</a></li>
-      </ul>
+
+      <!-- ✔ 3‑pill: Contact -->
+      <a href="#contact" class="contact-pill">Contact Us</a>
+
     </div>
   </header>
 
@@ -248,7 +263,8 @@
       <div class="contact-info">
         <div class="contact-card">
           <h3>Biz bilan bog‘laning</h3>
-          <p>Bizga xabar yuboring yoki telefon orqali murojaat qiling. Sizning loyihangizni muhokama qilishga tayyormiz!</p>
+          <p>Bizga xabar yuboring yoki telefon orqali murojaat qiling. Sizning loyihangizni muhokama qilishga tayyormiz!
+          </p>
           <div class="contact-item">
             <i class="fas fa-phone-alt"></i>
             <span>+(998 94) 281-82-46</span>
@@ -263,7 +279,7 @@
           </div>
           <div class="contact-item">
             <i class="fas fa-clock"></i>
-            <span>Ish vaqti: 09:00 — 18:00 (Dush — Shan)</span>
+            <span>Ish vaqti: 09:00 — 18:00 (Dush — Juma)</span>
           </div>
           <div class="hours-status closed" id="hoursStatus">Yopiq</div>
           <a href="#" id="contactSubmit" class="contact-btn">Menejer bilan bog‘lanish</a>
@@ -274,7 +290,8 @@
           <h3>Bizning manzil</h3>
           <p>Toshkent shahri, Chilanzor tumani</p>
         </div>
-        <iframe title="Arial Uz manzili" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d47928.26301431902!2d69.21607243804708!3d41.29949580370261!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38aef4cb5a8ebfbb%3A0x351b2edc675985d!2sToshkent%2C%20Toshkent%20Shahri!5e0!3m2!1suz!2s!4v1713344900000"></iframe>
+        <iframe title="Arial Uz manzili"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d47928.26301431902!2d69.21607243804708!3d41.29949580370261!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38aef4cb5a8ebfbb%3A0x351b2edc675985d!2sToshkent%2C%20Toshkent%20Shahri!5e0!3m2!1suz!2s!4v1713344900000"></iframe>
       </div>
     </div>
   </section>
@@ -372,26 +389,6 @@
       testimonialsWrapper.scrollBy({ left: 300, behavior: "smooth" });
     });
 
-    // Hero Image Tilt Effect
-    const heroImage = document.querySelector('.hero-image');
-    const heroImg = heroImage.querySelector('img');
-
-    heroImage.addEventListener('mousemove', (event) => {
-      const rect = heroImage.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-      const mouseX = event.clientX - centerX;
-      const mouseY = event.clientY - centerY;
-      const n = 10;
-      const rotateX = -mouseY / n;
-      const rotateY = mouseX / n;
-      heroImg.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-    });
-
-    heroImage.addEventListener('mouseleave', () => {
-      heroImg.style.transform = 'rotateX(0deg) rotateY(0deg)';
-    });
-
     // Poligraphy Slider
     const printData = [
       {
@@ -470,6 +467,7 @@
     setInterval(updateHoursStatus, 60000);
   </script>
 </body>
+
 </html>
 
 <?php
