@@ -190,5 +190,3 @@
 </body>
 
 </html>
-
-// mana shu
