@@ -18,22 +18,112 @@ body {
   margin: 0 auto;
 }
 
-/* HEADER + NAVBAR */
-header {
-  position: sticky;
-  top: 16px;
-  z-index: 999;
-  background: transparent;
+/* ROOT VARIABLES (from style_1 for header) */
+:root {
+  --pill-h: 60px;      /* umumiy balandlik */
+  --pill-px: 32px;     /* gorizontal padding */
 }
 
+header{
+  position:sticky;
+  top:16px;
+  z-index:999;
+  background:transparent;
+}
+
+.nav-container{
+  max-width:1300px;
+  margin:0 auto;
+  display:flex;
+  align-items:center;
+  gap:20px;            /* pill’lar orasidagi “bo‘shliq” */
+  padding:0 8px;
+}
+
+/* BARCHA pill’lar uchun yagona stil */
+.logo-pill,
+.center-pill,
+.contact-pill{
+  min-height:var(--pill-h);   /* << balandlikni tenglaydi */
+  padding:0 var(--pill-px);   /* 0 vertikal, px gorizontal  */
+  display:flex;
+  align-items:center;         /* vertikal markazlash */
+  background:#a81a1a;
+  border-radius:9999px;
+  box-shadow:0 4px 16px rgba(0,0,0,.06);
+}
+
+/* 1) Logo pill */
+.logo-pill{
+  padding:10px 28px;
+  font-size:1.5rem;
+  font-weight:700;
+  color:#f2f2f2;
+  text-decoration:none;
+}
+
+/* 2) O‘rta pill (flex:1 = kengayadi) */
+.center-pill{
+  flex:1;
+  justify-content:center;
+  gap:32px;
+  padding:10px 24px;
+}
+
+/* Pill konteyner */
+.nav-wrapper{
+  width:100%;
+  max-width:1200px;
+  margin:0 auto;
+  padding:8px 28px;
+  background:#fff;
+  border-radius:9999px;
+  display:flex;
+  align-items:center;
+  gap:32px;
+  box-shadow:0 4px 16px rgba(0,0,0,.06);
+}
+
+.logo{
+  font-size:1.4rem;
+  font-weight:700;
+  color:#0b4336;
+  white-space:nowrap;
+  text-decoration:none;
+}
+
+.nav-container {
+  max-width: 1300px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 20px; /* pill’lar orasidagi “bo‘shliq” */
+  padding: 0 8px;
+}
+
+/* BARCHA pill’lar uchun yagona stil */
+.logo-pill,
+.center-pill,
+.contact-pill {
+  min-height: var(--pill-h); /* << balandlikni tenglaydi */
+  padding: 0 var(--pill-px); /* 0 vertikal, px gorizontal */
+  display: flex;
+  align-items: center; /* vertikalvarchar */
+  background: #a81a1a;
+  border-radius: 9999px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
+/* 1) Logo pill */
 .logo-pill {
   padding: 10px 28px;
   font-size: 1.5rem;
   font-weight: 700;
-  color: #003c34;
+  color: #f2f2f2;
   text-decoration: none;
 }
 
+/* 2) O‘rta pill (flex:1 = kengayadi) */
 .center-pill {
   flex: 1;
   justify-content: center;
@@ -41,60 +131,137 @@ header {
   padding: 10px 24px;
 }
 
+/* Pill konteyner */
+.nav-wrapper {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 8px 28px;
+  background: #fff;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
+.logo {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #0b4336;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+/* Linklar */
 .nav-links {
   list-style: none;
   display: flex;
-  gap: 28px;
+  gap: 28px; /* markazda o‘sadi */
 }
 
 .nav-links a {
   font-weight: 700;
-  color: #003c34;
+  color: #f2f2f2;
   text-decoration: none;
-  transition: color .25s;
+  transition: color 0.25s;
 }
 
 .nav-links a:hover {
   color: #00856c;
 }
 
+/* Qidiruv chizig‘i */
 .search {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 6px 16px;
-  background: #f3ece7;
+  height: 36px; /* << oldingi 28‑30px o‘rniga */
+  padding: 0 16px;
+  background: #eeeeee;
   border-radius: 9999px;
+  transition: background 0.25s; /* silliq o‘tish */
 }
 
-.search i {
-  color: #003c34;
+.search:hover,
+.search:focus-within {
+  background: #dddddd; /* 3‑rasmdagi */
+}
+
+.search i,
+.search:hover input::placeholder,
+.search:focus-within input::placeholder {
+  color: #4d4d4d;
 }
 
 .search input {
   border: none;
-  background: transparent;
-  width: 140px;
+  background: transparent; /* fonni konteynerga topshiramiz */
   font-weight: 500;
-  color: #003c34;
+  width: 140px;
+  line-height: 36px;
+  color: #333;
 }
 
 .search input:focus {
   outline: none;
 }
 
+/* “Contact Us” tugmasi */
+.contact-nav-btn {
+  background: #fff;
+  color: #0b4336;
+  border: 2px solid #0b4336;
+  border-radius: 9999px;
+  padding: 10px 26px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.25s;
+}
+
+.contact-nav-btn:hover {
+  background: #0b4336;
+  color: #fff;
+}
+
+/* 3) Contact pill */
 .contact-pill {
   padding: 12px 34px;
-  border: 2px solid #003c34;
   font-weight: 700;
-  color: #003c34;
+  color: #f2f2f2;
   text-decoration: none;
-  transition: all .25s;
+  transition: all 0.25s;
 }
 
 .contact-pill:hover {
-  background: #003c34;
-  color: #fff;
+  background: #f2f2f2;
+  border: 2px solid #a81a1a;
+  color: #a81a1a;
+}
+
+/* ===== util pill ===== */
+.utility-pill {
+  background: #fff;
+  border-radius: 9999px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 20px;
+  min-height: var(--pill-h);
+}
+
+.icon-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.icon-btn img {
+  width: 28px;
+  height: 28px;
 }
 
 /* HERO SECTION */
@@ -138,7 +305,7 @@ header {
 .btn {
   display: inline-block;
   background-color: rgb(194, 35, 35);
-  color: #ffffff;
+  color: #210202;
   padding: 15px 25px;
   border-radius: 5px;
   font-weight: bold;
@@ -167,55 +334,8 @@ header {
   max-width: 600px;
   margin: 0 auto;
   display: block;
-  height: 500px;
+  height: auto;
 }
-
-/* ===== HERO SLIDER ===== */
-.hero-slider{
-  flex:1;
-  position:relative;
-  min-height:420px;
-  overflow:hidden;
-}
-
-.hero-track{
-  display:flex;
-  transition:transform .6s ease;   /* sirpanish animatsiyasi */
-}
-
-.hero-slide{
-  flex:0 0 100%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-.hero-slide img{
-  max-width:100%;
-  max-height:100%;
-  object-fit:contain;
-}
-
-/*.hero-slide.active{
-  opacity:1;
-}   /* ko‘rinadigan slayd */
-
-/* ▸ dots */
-.hero-dots{
-  position:absolute;
-  bottom:12px; left:50%; transform:translateX(-50%);
-  display:flex; gap:8px;
-}
-.hero-dots button{
-  width:12px; height:12px;
-  border-radius:50%;
-  background:#bdbdbd;
-  border:none;
-  cursor:pointer;
-  transition:background .3s;
-}
-.hero-dots button.active{background:#c42323;} /* QIZIL */
-
 
 /* POLIGRAFIYA SECTION */
 .print {
@@ -503,7 +623,7 @@ header {
 }
 
 .team-slide {
-  flex: 0 0 25%; /* Each slide takes 1/4 of the container (since 4 slides are visible in the viewport) */
+  flex: 0 0 25%; /* Each slide takes 1/4 of the container */
   padding: 20px;
   display: flex;
   justify-content: center;
@@ -997,7 +1117,7 @@ header {
   max-width: 500px;
   border-radius: 16px;
   overflow: hidden;
-  position: relative;
+  position: relative ryzy;
   min-height: 400px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
   transition: transform 0.3s ease;
@@ -1157,12 +1277,6 @@ header {
     font-size: 1.2rem;
   }
 
-  .team-arrow {
-    width: 40px;
-    height: 40px;
-    font-size: 1.2rem;
-  }
-
   #teamPrev {
     left: 10px;
   }
@@ -1183,11 +1297,43 @@ header {
     font-size: 1.2rem;
   }
 
-  #testimonialPrev {
-    left: 5px;
+  .nav-container {
+    flex-direction: column;
+    gap: 10px;
   }
 
-  #testimonialNext {
-    right: 5px;
+  .center-pill {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .search {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .search input {
+    width: 100%;
+  }
+
+  .contact-pill {
+    width: 100%;
+    text-align: center;
+  }
+
+  .logo-pill {
+    width: 100%;
+    text-align: center;
+  }
+
+  .utility-pill {
+    width: 100%;
+    justify-content: center;
   }
 }

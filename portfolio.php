@@ -14,56 +14,63 @@ include 'printData.php';
   <title>Arial Uz Portfolio</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
   <link rel="stylesheet" href="data/footer.css" />
-  <link rel="stylesheet" href="portfolio.css?v=1.1" />
+  <link rel="stylesheet" href="portfolio.css?v=1.0" />
 </head>
 
 <body>
   <!-- HEADER + NAVIGATION -->
   <header>
-    <div class="nav-container">
-      <a href="#" class="logo-pill">Arial Uz</a>
+    <div class="nav-container"><!-- = barcha pill’larni tutib turadi -->
+
+      <!-- ✔️ 1‑pill: Logo -->
+      <a href="#" class="logo-pill">Arial Uz</a>
+
+      <!-- ✔️ 2‑pill: Navigatsiya + Search -->
       <div class="center-pill">
         <ul class="nav-links">
           <li><a href="#">Bosh sahifa</a></li>
           <li><a href="#who">Biz kimmiz?</a></li>
           <li><a href="#team">Jamoa</a></li>
-          <li><a href="index.php">Arial Market</a></li>
+          <li><a href="index.php">Arial Market</a></li>
           <li><a href="#contact">Aloqa</a></li>
         </ul>
+
         <form class="search">
           <i class="fas fa-search"></i>
           <input type="text" placeholder="Search" />
         </form>
       </div>
+
+      <!-- ✔️ 3‑pill: Contact -->
+      <a href="#contact" class="contact-pill">Contact Us</a>
+
+      <!-- 4‑pill: Kichik util -->
+      <div class="utility-pill">
+        <button id="langToggle" class="icon-btn"><img id="langIcon" src="images/icons/uz.svg" alt="lang"></button>
+        <button id="themeToggle" class="icon-btn"><img id="themeIcon" src="images/icons/sun.svg" alt="theme"></button>
+      </div>
+
     </div>
   </header>
 
-  <!-- ===== HERO SECTION ===== -->
+
+  <!-- HERO SECTION -->
   <section class="hero container">
-    <!-- chap taraf – sarlavha va tugmalar -->
     <div class="hero-text">
-      <h1>Arial Uz</h1>
+      <h1>Arial Uz</h1>
       <h2>Shunchaki odatiy</h2>
       <p>
-        Bu yerda o‘zingiz haqingizda yoki loyihalaringiz haqida qisqacha,
-        jozibali matn joylashtirishingiz mumkin…
+        Bu yerda o‘zingiz haqingizda yoki loyihalaringiz haqida qisqacha, jozibali matn joylashtirishingiz
+        mumkin. Bu matn kelajakdagi mijozlar yoki ish beruvchilarga kim ekaningizni bildiradi.
       </p>
       <div class="btn-group">
         <a href="#" class="btn">Portfolio</a>
-        <a href="#who" class="btn" style="background:#fff;color:#a81a1a;">Batafsil</a>
+        <a href="#who" class="btn" style="background-color: #FFF; color: #210202;">Batafsil</a>
       </div>
     </div>
-
-    <!-- o‘ng taraf – rasmlar slideri  (BU yerdan ↓ qo‘ying) -->
-    <div class="hero-slider">
-      <div class="hero-track">
-        <div class="hero-slide"><img src="images/1234.png" alt="Set 1"></div>
-        <div class="hero-slide"><img src="images/set2.png" alt="Set 2"></div>
-        <div class="hero-slide"><img src="images/set3.png" alt="Set 3"></div>
-      </div>
-      <div class="hero-dots"></div>
+    <div class="hero-image">
+      <img src="images/1234.png" alt="Dizayn jarayoni">
     </div>
-
   </section>
 
   <!-- POLIGRAFIYA SECTION -->
@@ -414,91 +421,6 @@ include 'printData.php';
     updateHoursStatus();
     setInterval(updateHoursStatus, 60000);
   </script>
-
-  <script>
-    /* --- ikonka yo‘llari --- */
-    const ICON = {
-      uz: 'images/logos/uzb.png',
-      ru: 'images/logos/russia.png',
-      sun: 'images/logos/sun.png',
-      moon: 'images/logos/moon.png'
-    };
-
-    /* ---------- TIL ---------- */
-    const langT = document.getElementById('langToggle');
-    const langI = document.getElementById('langIcon');
-    let curLang = localStorage.getItem('lang') || 'uz';
-    setLang(curLang);
-
-    langT.addEventListener('click', () => {
-      curLang = (curLang === 'uz') ? 'ru' : 'uz';
-      setLang(curLang);
-    });
-    function setLang(l) {
-      langI.src = ICON[l];
-      document.documentElement.setAttribute('lang', l);
-      localStorage.setItem('lang', l);
-      // TODO: agar real tarjima bo‘lsa shu yerda chaqirasiz
-    }
-
-    /* ---------- TEMA ---------- */
-    const themeT = document.getElementById('themeToggle');
-    const themeI = document.getElementById('themeIcon');
-    let curTheme = localStorage.getItem('theme') || 'light';
-    setTheme(curTheme);
-
-    themeT.addEventListener('click', () => {
-      curTheme = (curTheme === 'light') ? 'dark' : 'light';
-      setTheme(curTheme);
-    });
-    function setTheme(t) {
-      document.documentElement.setAttribute('data-theme', t);
-      themeI.src = (t === 'light') ? ICON.sun : ICON.moon;
-      localStorage.setItem('theme', t);
-    }
-  </script>
-
-  <script>
-    /* === HERO SLIDER === */
-    const track = document.querySelector('.hero-track');
-    const slides = document.querySelectorAll('.hero-slide');
-    const dotBox = document.querySelector('.hero-dots');
-    let heroIdx = 0;
-
-    /* nuqtalarni yasash */
-    slides.forEach((_, i) => {
-      const b = document.createElement('button');
-      b.addEventListener('click', () => goToSlide(i));
-      dotBox.appendChild(b);
-    });
-    const dots = dotBox.querySelectorAll('button');
-
-    function goToSlide(i) {
-      track.style.transform = `translateX(-${i * 100}%)`;   // ★ asosiy o‘zgarish
-      dots[heroIdx].classList.remove('active');
-      heroIdx = i;
-      dots[heroIdx].classList.add('active');
-    }
-
-    /* boshlang‘ich holat */
-    goToSlide(0);
-
-    /* 3 sekundlik avtomatik sirpanish */
-    let heroTimer = setInterval(nextSlide, 3000);
-    function nextSlide() {
-      const n = (heroIdx + 1) % slides.length;
-      goToSlide(n);
-    }
-
-    /* dot bosilganda taymerni reset qilamiz */
-    dotBox.addEventListener('click', () => {
-      clearInterval(heroTimer);
-      heroTimer = setInterval(nextSlide, 3000);
-    });
-
-  </script>
-
-
 </body>
 
 </html>
